@@ -1,4 +1,6 @@
 from config import app
+from models import Comment,Thread,User
+
 
 
 

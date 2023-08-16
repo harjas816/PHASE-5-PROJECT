@@ -6,16 +6,9 @@ from sqlalchemy.orm import validates
 
 from config import db
 
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-    "uq": "uq_%(table_name)s_%(column_0_name)s",
-    "ck": "ck_%(table_name)s_%(constraint_name)s",
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
 
-db = SQLAlchemy(metadata=metadata)
 
-class Comment(db.model, SerializerMixin):
+class Comment(db.Model, SerializerMixin):
     __tablename__ = "comments"
 
     id = db.Column(db.Integer, primary_key=True)
@@ -26,11 +19,14 @@ class Comment(db.model, SerializerMixin):
     user = db.relationship("User", back_populates = "comments")
     thread = db.relationship("Thread", back_populates = "comments")
 
+    def __repr__(self):
+        return f'ID: {self.id}, Content: {self.content}, User: {self.user}, Thread: {self.thread}'
+
         
 
 
 
-class User(db.model, SerializerMixin):
+class User(db.Model, SerializerMixin):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key = True)
@@ -44,7 +40,7 @@ class User(db.model, SerializerMixin):
 
 
 
-class Thread(db.model, SerializerMixin):
+class Thread(db.Model, SerializerMixin):
     __tablename__ = "threads"
 
     id = db.Column(db.Integer, primary_key = True)
