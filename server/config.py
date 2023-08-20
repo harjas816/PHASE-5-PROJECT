@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from sqlalchemy import MetaData
 from flask_restful import Api
+from flask_bcrypt import Bcrypt
 
 
 #instantiating app 
@@ -28,3 +29,5 @@ api = Api(app)
 
 #Instantiate CORS
 # CORS(app)
+
+bcrpyt = Bcrypt(app)
