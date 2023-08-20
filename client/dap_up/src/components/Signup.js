@@ -24,10 +24,10 @@ function Signup() {
             password: ""
         },
         validationSchema: formSchema,
-        onsubmit: (values) => {
-            fetch('/users', {
+        onSubmit: (values) => {
+            fetch(`/users`, {
                 method: "POST",
-                headers: { "Content_type": "application.json" },
+                headers: { "Content-type": "application/json" },
                 body: JSON.stringify(values)
             })
                 .then(resp => {
@@ -44,7 +44,44 @@ function Signup() {
 
 
     return (
-        <form>
+
+
+        <form onSubmit={formik.handleSubmit}>
+            <input
+                type="text"
+                name="username"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                placeholder="username"
+            >
+            </input>
+
+            <br></br>
+
+            <input
+                type="text"
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                placeholder="email"
+            ></input>
+
+            <br></br>
+
+            <input
+                type="password"
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                placeholder="password"
+            ></input>
+
+            <br></br>
+
+            <button type="submit"> sign up!</button>
+
+            <br></br>
+
             <Link to={-1}>
                 <button>back</button>
             </Link>

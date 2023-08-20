@@ -11,7 +11,7 @@ function Landing(){
     return(
         <div>
             <h1>Dap_Up</h1>
-            <button onClick={() => navigate("/signup")}>Signup</button>
+            <button onClick={() => navigate("/signup_page")}>Signup</button>
             <br></br>
             <button onClick={() => navigate("/login")}>Login</button>
         </div>

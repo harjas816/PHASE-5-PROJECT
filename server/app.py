@@ -10,7 +10,8 @@ class Users(Resource):
 
     def post(self):
         data = request.get_json()
-        new_user = User(username = data["username"], _password_hash = data["password"], email = data["email"])
+        password = data["password"]
+        new_user = User(username = data["username"], password_hash = password, email = data["email"])
         db.session.add(new_user)
         db.session.commit()
         return make_response("You have succesfully signed up!", 201)

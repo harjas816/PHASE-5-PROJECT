@@ -38,16 +38,18 @@ class User(db.Model, SerializerMixin):
     comments = db.relationship("Comment", back_populates = "user")
     threads = association_proxy("comments", "thread")
 
-    def getPasswordHash(self):
+    @property
+    def password_hash(self):
         return self._password_hash
     
-    def setPasswordHash(self, new_password):
+    @password_hash.setter
+    def password_hash(self, new_password):
         new_password_byte_object = new_password.encode('utf-8')
         new_password_hash = bcrpyt.generate_password_hash(new_password_byte_object)
         new_hash_as_string = new_password_hash.decode('utf-8')
         self._password_hash = new_hash_as_string
 
-    password_hash = property(getPasswordHash, setPasswordHash)
+
 
 
 
