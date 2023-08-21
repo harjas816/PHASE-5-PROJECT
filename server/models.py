@@ -49,8 +49,11 @@ class User(db.Model, SerializerMixin):
         new_hash_as_string = new_password_hash.decode('utf-8')
         self._password_hash = new_hash_as_string
 
-
-
+    def authenticate(self, passed_string):
+        return bcrpyt.check_password_hash(
+            self.password_hash,
+            passed_string.encode("utf-8")
+        )
 
 
     def __repr__(self):
