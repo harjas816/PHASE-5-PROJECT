@@ -1,10 +1,24 @@
 import React from "react";
+import { UserContext } from "../context/user";
+import { useContext } from "react";
+import ThreadCard from "./UserThreadCard";
+import "../css/Login.css"
 
 
-function Home(){
-    return(
+
+function Home() {
+
+
+
+    const { user, setUser } = useContext(UserContext)
+
+
+
+    return (
         <div>
-            <h1>home</h1>
+            <div>
+                <h1 className="username">{user?.username}</h1>
+            </div>
         </div>
     )
 }

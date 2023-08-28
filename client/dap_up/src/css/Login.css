@@ -1,0 +1,48 @@
+.cover{
+    text-align: center;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(5px);
+}
+
+.landing-button{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-250px);
+}
+
+.input-box{
+    border: none;
+    justify-content: space-between;
+    align-items: left;
+}
+
+.front-page-button{
+    border: none;
+    background: none;
+    font-size: large;
+}
+
+.landing-button{
+    border: none;
+    background: none;
+    font-size: large;
+    transform: translateY(-30vh);
+}
+
+.landing-button-container{
+    transform: translateX(529px);
+    justify-content: center;
+    align-items: center;
+}
+
+.Header{
+    justify-content: space-between;
+    justify-content: space-around;
+    justify-content: space-evenly;
+    transform: translateY(-10px);
+}
+

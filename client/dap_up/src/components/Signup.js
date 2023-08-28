@@ -4,10 +4,12 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import "../css/Login.css"
 
 
 
-function Signup() {
+
+function Signup({ handleLoginToggle }) {
 
     const navigate = useNavigate()
 
@@ -33,10 +35,10 @@ function Signup() {
                 .then(resp => {
                     if (resp.ok) {
                         console.log("you have successfully signed up!")
-                        navigate("/")
+                        handleLoginToggle()
                     }
                     else {
-                        console.log("handle errors!")
+                        console.log("username or email already taken!")
                     }
                 })
         }
@@ -45,47 +47,50 @@ function Signup() {
 
     return (
 
+        <div className="cover">
+            <form onSubmit={formik.handleSubmit}>
+                <input
+                    type="text"
+                    name="username"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    placeholder="username"
+                    className="input-box"
+                >
+                </input>
 
-        <form onSubmit={formik.handleSubmit}>
-            <input
-                type="text"
-                name="username"
-                value={formik.values.username}
-                onChange={formik.handleChange}
-                placeholder="username"
-            >
-            </input>
+                <br></br>
 
-            <br></br>
+                <input
+                    type="text"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    placeholder="email"
+                    className="input-box"
+                ></input>
 
-            <input
-                type="text"
-                name="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                placeholder="email"
-            ></input>
+                <br></br>
 
-            <br></br>
+                <input
+                    type="password"
+                    name="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    placeholder="password"
+                    className="input-box"
+                ></input>
 
-            <input
-                type="password"
-                name="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                placeholder="password"
-            ></input>
+                <br></br>
 
-            <br></br>
+                <button type="submit"> sign up!</button>
 
-            <button type="submit"> sign up!</button>
+                <br></br>
 
-            <br></br>
+                
 
-            <Link to={-1}>
-                <button>back</button>
-            </Link>
-        </form>
+            </form>
+        </div>
     )
 }
 

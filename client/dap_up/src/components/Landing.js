@@ -1,19 +1,31 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import Signup from "./Signup";
+import Login from "./Login";
+import { useState } from "react";
+import "../css/Login.css"
 
 
 
 
-function Landing(){
+function Landing() {
 
-    const navigate = useNavigate()
-    
-    return(
+    const [login, setLogin] = useState(true)
+
+
+    const handleLoginToggle = () => {
+        setLogin(!login)
+    }
+
+
+    return (
         <div>
-            <h1>Dap_Up</h1>
-            <button onClick={() => navigate("/signup_page")}>Signup</button>
-            <br></br>
-            <button onClick={() => navigate("/login")}>Login</button>
+
+
+            {login ? <Login /> : <Signup handleLoginToggle = {handleLoginToggle}/>}
+            
+            <div className="landing-button-container">
+                <button className = "landing-button" onClick={handleLoginToggle}>{login ? 'Not a member? Sign Up!':'Already a Member? Log In!' }</button>
+            </div>
         </div>
     )
 }
