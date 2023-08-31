@@ -20,7 +20,7 @@ class Comment(db.Model, SerializerMixin):
     user = db.relationship("User", back_populates = "comments")
     thread = db.relationship("Thread", back_populates = "comments")
 
-    serialize_rules = ("-user.comments", "-thread.comments")
+    serialize_rules = ("-user.comments", "-thread.comments", "-user.created_threads", "-user.commented_threads")
     def __repr__(self):
         return f'ID: {self.id}, Content: {self.content}, User: {self.user}, Thread: {self.thread}'
 
@@ -57,7 +57,7 @@ class User(db.Model, SerializerMixin):
             passed_string.encode("utf-8")
         )
     
-    serialize_rules = ("-comments.user", "-threads.users", "-_password_hash",)
+    serialize_rules = ("-comments.user", "-threads.users", "-_password_hash", "-thread.user")
 
 
     def __repr__(self):
@@ -72,14 +72,13 @@ class Thread(db.Model, SerializerMixin):
     title = db.Column(db.String, nullable = False)
     description = db.Column(db.String )
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    likes = db.Column(db.Integer, default = 0)
-    dislikes = db.Column(db.Integer, default = 0)
+
 
     comments = db.relationship("Comment", back_populates = "thread")
     users = association_proxy("comments", "user")
     creator = db.relationship("User", back_populates = "created_threads")
 
-    serialize_rules = ("-users.threads", "-comment.thread")
+    serialize_rules = ("-users.threads", "-comment.thread",  "-creator.created_threads", "-creator.commented_threads", "-creator.comments", "-creator.email","-users.comments",)
     
     def __repr__(self):
         return f'ID: {self.id}, Title:{self.title}'

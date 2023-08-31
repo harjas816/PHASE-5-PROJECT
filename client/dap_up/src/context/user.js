@@ -1,5 +1,4 @@
 import { useState, useContext, createContext, React } from "react";
-import { useEffect } from "react";
 import { ReactDOM } from "react-dom/client";
 
 const UserContext = createContext(null)

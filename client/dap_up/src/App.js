@@ -11,15 +11,33 @@ import { useContext, useState } from 'react';
 import Navbar from './components/Navbar';
 import "../src/css/Login.css"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Threadpage from './components/Threadpage';
+import ThreadPage from './components/ThreadPage';
+import DisplayAllThreads from './components/DisplayAllThreads';
 
 
 function App() {
 
   const { user, setUser } = useContext(UserContext)
+  
+  const [threads, setThreads] = useState([])
 
+  const rerenderThreads = (newThreadList) => {
+    setThreads(newThreadList)
+  }
 
+  useEffect(() => {
+    fetch("/threads")
+    .then(r => {
+      if(r.ok){
+        r.json().then(resp_body => {
+          console.log(resp_body)
+          setThreads(resp_body)
+        })
+      }
+    })
+  }, [user])
 
+  console.log(threads)
 
 
   useEffect(() => {
@@ -41,9 +59,9 @@ function App() {
     {user ? <Navbar /> : <div></div>}
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/Threads" element={<Threadpage />}/>
-        <Route path="/threads/:id" />
+        <Route path="/Home" element={<Home rerenderThreads = {rerenderThreads}/>} />
+        <Route path="/Threads" element={<DisplayAllThreads threads = {threads}/>}/>
+        <Route path="/threads/:id" element={<ThreadPage threads = {threads} />}/>
       </Routes>
 
     </div>
